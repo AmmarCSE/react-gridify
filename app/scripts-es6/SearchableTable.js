@@ -1,3 +1,11 @@
+/*
+*	Searchable Table
+*	Author: Jean-Pierre Sierens
+*	===========================================================================
+
+import React from 'react';
+
+*/
 class SearchableTable extends React.Component {
 	constructor() {
 		super();
