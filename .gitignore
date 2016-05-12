@@ -6,8 +6,6 @@ Session.vim
 # temporary
 .netrwhist
 *~
-# auto-generated tag files
-tags
 
 node_modules
 bower_modules
