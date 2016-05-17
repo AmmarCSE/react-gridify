@@ -1,4 +1,4 @@
-let utils = (function(){
+const utils = (function(){
     function generateReactKey(){
         let reactKey = 0;
         return function(){
@@ -10,3 +10,5 @@ let utils = (function(){
         generateReactKey : generateReactKey()
     }
 })();
+
+export default utils
