@@ -4,7 +4,7 @@ import Grid from '../containers/Grid'
 import defaultData from '../resources/DefaultData'
 
 const App = () => (
-    <Grid data={defaultData.data} headers={defaultData.headers}/>
+    <Grid />
 )
 
 export default App
