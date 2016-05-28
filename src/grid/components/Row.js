@@ -13,6 +13,10 @@ const Row = ({ rowData, headers }) => (
                 />
             })
         }
+    //have these here rather than separate components since their actions are tied to the whole row
+    <td>
+        Edit
+    </td>
     </tr>
 )
 

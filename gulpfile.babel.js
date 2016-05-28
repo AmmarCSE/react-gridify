@@ -17,12 +17,6 @@ gulp.task('scripts', () => {
     .pipe(webpack(require('./webpack.config.js')))
     .pipe(gulp.dest('dist/'))
     .pipe(reload({stream: true}));
-  return gulp.src('app/scripts-es6/*.js')
-    .pipe($.sourcemaps.init())
-    .pipe($.babel({presets: ["es2015", "react"]}))
-    .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('app/scripts'))
-    .pipe(reload({stream: true}));
 });
 
 gulp.task('serve', [ 'scripts'], () => {

@@ -15,6 +15,10 @@ const HeaderRow = ({ headers }) => (
                 />
             })
         }
+        <Header 
+            key={'action'} 
+            header={'Action'}
+        />
     </tr>
 )
 
