@@ -4,9 +4,10 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import gridApp from './src/grid/reducers'
-import App from './src/grid/components/App'
+import App from './src/App'
+import configureStore from './src/grid/store/configureStore'
 
-let store = createStore(gridApp)
+const store = configureStore()
 
 render(
   <Provider store={store}>

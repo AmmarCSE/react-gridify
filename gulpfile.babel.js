@@ -7,13 +7,13 @@ const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
 gulp.task('default', () => {
-  return gulp.src('src/grid/App.js')
+  return gulp.src('src/App.js')
     .pipe(webpack(require('./webpack.config.js')))
     .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('scripts', () => {
-  return gulp.src('src/grid/App.js')
+  return gulp.src('src/App.js')
     .pipe(webpack(require('./webpack.config.js')))
     .pipe(gulp.dest('dist/'))
     .pipe(reload({stream: true}));
@@ -27,7 +27,8 @@ gulp.task('serve', [ 'scripts'], () => {
       routes: {
         '/bower_components': 'bower_components'
       }
-    }
+    },
+    online:true
   });
 
   gulp.watch([

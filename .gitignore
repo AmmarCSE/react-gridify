@@ -9,3 +9,5 @@ Session.vim
 
 node_modules
 bower_modules
+src/browser-endpoints
+src/local-storage-sql
