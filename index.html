@@ -6,6 +6,14 @@
   <body>
     <div class="todoapp" id="root">
     </div>
+    <script src="dist/browser-endpoints.js"></script>
+    <script src="dist/local-storage-sql.js"></script>
+    <script>
+        var app = browserServer()
+        app.get('[be]/search', function(){
+            console.log('wechat')
+        })
+    </script>
     <script src="dist/bundle.js"></script>
   </body>
 </html>

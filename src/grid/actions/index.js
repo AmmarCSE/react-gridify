@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch'
+import {ajax} from '../../utils/utils'
 
 export const REQUEST_POSTS = 'REQUEST_POSTS'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
@@ -35,12 +35,13 @@ function receivePosts(reddit, json) {
   }
 }
 
-function fetchPosts(reddit) {
+function fetchGridData(reddit) {
   return dispatch => {
-    dispatch(requestPosts(reddit))
+    //ajax('GET', 'wechat')
+    /*dispatch(requestPosts(reddit))
     return fetch(`https://www.reddit.com/r/${reddit}.json`)
       .then(response => response.json())
-      .then(json => dispatch(receivePosts(reddit, json)))
+      .then(json => dispatch(receivePosts(reddit, json)))*/
   }
 }
 
@@ -59,7 +60,7 @@ function shouldFetchPosts(state, reddit) {
 export function fetchPostsIfNeeded(reddit) {
   return (dispatch, getState) => {
     if (shouldFetchPosts(getState(), reddit)) {
-      return dispatch(fetchPosts(reddit))
+      return dispatch(fetchGridData(reddit))
     }
   }
 }

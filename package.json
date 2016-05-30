@@ -16,6 +16,7 @@
     "babel-register": "^6.3.13",
     "cross-env": "^1.0.7",
     "expect": "^1.8.0",
+    "expose-loader": "^0.7.1",
     "express": "^4.13.3",
     "jsdom": "^5.6.1",
     "mocha": "^2.2.5",
