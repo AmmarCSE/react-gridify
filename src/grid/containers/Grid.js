@@ -14,9 +14,14 @@ const getVisibleTodos = (todos, filter) => {
 }
 
 const mapStateToProps = (state) => {
+console.log({
+    data: state.data || [],
+    headers: state.headers || [] 
+  }
+)
   return {
-    data: state.data,
-    headers: state.headers 
+    data: state.data || [],
+    headers: state.headers || [] 
   }
 }
 

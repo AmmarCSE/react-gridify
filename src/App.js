@@ -60,7 +60,9 @@ function mapStateToProps(state) {
     isFetching,
     lastUpdated
   }*/
-    return {}
+//console.log(state)
+  return {
+  }
 }
 
 export default connect(mapStateToProps)(App)

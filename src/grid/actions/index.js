@@ -1,7 +1,7 @@
 import {ajax} from '../../utils/utils'
 
-export const REQUEST_POSTS = 'REQUEST_POSTS'
-export const RECEIVE_POSTS = 'RECEIVE_POSTS'
+export const REQUEST_GRIDDATA = 'REQUEST_GRIDDATA'
+export const RECEIVE_GRIDDATA = 'RECEIVE_GRIDDATA'
 export const SELECT_REDDIT = 'SELECT_REDDIT'
 export const INVALIDATE_REDDIT = 'INVALIDATE_REDDIT'
 
@@ -19,29 +19,29 @@ export function invalidateReddit(reddit) {
   }
 }
 
-function requestPosts(reddit) {
+function requestGridData(search) {
   return {
-    type: REQUEST_POSTS,
-    reddit
+    type: REQUEST_GRIDDATA,
+    search
   }
 }
 
-function receivePosts(reddit, json) {
+function receiveGridData(search, json) {
   return {
-    type: RECEIVE_POSTS,
-    reddit,
-    posts: json.data.children.map(child => child.data),
-    receivedAt: Date.now()
+    type: RECEIVE_GRIDDATA,
+    search,
+    data: json.data,
+    headers: json.headers
   }
 }
 
-function fetchGridData(reddit) {
+function fetchGridData(search) {
   return dispatch => {
-    //ajax('GET', 'wechat')
-    /*dispatch(requestPosts(reddit))
-    return fetch(`https://www.reddit.com/r/${reddit}.json`)
+    dispatch(requestGridData(search))
+    ajax('GET', '[be]/search', (json) => { dispatch(receiveGridData(search, json)) } )
+    /*return fetch(`https://www.search.com/r/${search}.json`)
       .then(response => response.json())
-      .then(json => dispatch(receivePosts(reddit, json)))*/
+      .then(json => dispatch(receivePosts(search, json)))*/
   }
 }
 
