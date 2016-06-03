@@ -2,8 +2,45 @@ import {ajax} from '../../utils/utils'
 
 export const REQUEST_GRIDDATA = 'REQUEST_GRIDDATA'
 export const RECEIVE_GRIDDATA = 'RECEIVE_GRIDDATA'
+export const EDIT_ROW = 'EDIT_ROW'
+export const COMMITED_ROW = 'COMMITED_ROW'
+export const DELETED_ROW = 'DELETED_ROW'
 export const SELECT_REDDIT = 'SELECT_REDDIT'
 export const INVALIDATE_REDDIT = 'INVALIDATE_REDDIT'
+
+export function editRow(index) {
+  return {
+    type: EDIT_ROW,
+    index
+ }
+}
+
+export function commitRow(touchedRow, index) {
+  return dispatch => {
+    ajax('POST', '[be]/update', () => { dispatch(commitedRow(index, touchedRow)) }, touchedRow )
+  }
+}
+
+export function commitedRow(index, newRow) {
+  return {
+    type: COMMITED_ROW,
+    index,
+    newRow 
+ }
+}
+
+export function deleteRow(index, key) {
+  return dispatch => {
+    ajax('POST', '[be]/delete', () => { dispatch(deletedRow(index)) }, key )
+  }
+}
+
+export function deletedRow(index) {
+  return {
+    type: DELETED_ROW,
+    index 
+  }
+}
 
 export function selectReddit(reddit) {
   return {

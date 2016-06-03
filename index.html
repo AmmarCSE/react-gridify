@@ -24,6 +24,29 @@
                 data : data
             })
         })
+        app.post('[be]/update', function(req, res){
+            var updateObj = req.params
+            var keys = Object.keys(updateObj)
+
+            if(keys.length == 1) return
+
+            var updateSet = keys.map(
+                function(key){
+                    return key + '=' + updateObj[key]
+                })
+                .join(',')
+
+            var result = sqlAgent.query('UPDATE products SET ' + updateSet + ' WHERE product_id = ' + updateObj['product_id'])
+            console.log(result)
+            res.send(result)
+        })
+        app.post('[be]/delete', function(req, res){
+            var key = req.params
+
+            var result = sqlAgent.query('DELETE FROM products WHERE product_id = ' + key)
+            console.log(result)
+            res.send(result)
+        })
     </script>
     <script src="dist/bundle.js"></script>
   </body>

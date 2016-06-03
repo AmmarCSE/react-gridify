@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 //import { toggleTodo } from '../actions'
 import GridView from '../components/GridView'
+import {editRow} from '../actions/index'
 
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {
@@ -14,28 +15,26 @@ const getVisibleTodos = (todos, filter) => {
 }
 
 const mapStateToProps = (state) => {
-console.log({
-    data: state.data || [],
-    headers: state.headers || [] 
-  }
-)
+  const { data,
+    headers,
+    editRows
+  } = state
+
   return {
-    data: state.data || [],
-    headers: state.headers || [] 
+    data,
+    headers,
+    editRows
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onTodoClick: (id) => {
-      dispatch(toggleTodo(id))
-    }
   }
 }
 
 const Grid = connect(
-  mapStateToProps
-  //mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(GridView)
 
 export default Grid

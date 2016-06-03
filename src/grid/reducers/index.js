@@ -10,21 +10,48 @@ function headerReducer(state = [], action){
 }
 
 function dataReducer(state = [], action){
+console.log(state)
+console.log(action)
   switch (action.type) {
-    case 'ADD_TODO':
-      return [
-        ...state,
-        todo(undefined, action)
-      ]
+    case 'COMMITTED_ROW':
+        let cloned = [
+            ...state
+          ]
+
+        Object.assign(cloned[action.index], action.newRow)
+
+        return cloned
+    case 'DELETED_ROW':
+        return [
+            ...state.filter((trash, index) => index != action.index)
+          ]
     case 'RECEIVE_GRIDDATA':
       return action.data
     default:
       return state
   }
 }
+
+function editRowsReducer(state = [], action){
+  switch (action.type) {
+    case 'EDIT_ROW':
+        return [
+            ...state,
+            action.index
+          ]
+    case 'COMMITTED_ROW':
+        return [
+            ...state.filter(index => index != action.index)
+          ]
+    default:
+      return state
+  }
+}
+
 const gridApp = combineReducers({
     data : dataReducer,
-    headers : headerReducer
+    headers : headerReducer,
+    editRows: editRowsReducer
 })
 
 export default gridApp
