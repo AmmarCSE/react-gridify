@@ -24,6 +24,28 @@
                 data : data
             })
         })
+        app.post('[be]/add', function(req, res){
+            var data = sqlAgent.query('SELECT product_id FROM products').map(function(row){return +row.product_id})
+            console.log(data)
+            console.log(Math.max.apply(Math, data))
+            var newKey = Math.max.apply(Math, data)+1
+
+            var insertObj = req.params
+            insertObj['product_id'] = newKey
+
+            var keys = Object.keys(insertObj)
+
+            var insertColumns = keys .join(',') 
+            var insertValues = keys.map(
+                function(key){
+                    return insertObj[key]
+                })
+                .join(',')
+
+
+            var result = sqlAgent.query('INSERT INTO products ('+insertColumns+') VALUES('+insertValues+')')
+            res.send(result)
+        })
         app.post('[be]/update', function(req, res){
             var updateObj = req.params
             var keys = Object.keys(updateObj)
@@ -37,14 +59,12 @@
                 .join(',')
 
             var result = sqlAgent.query('UPDATE products SET ' + updateSet + ' WHERE product_id = ' + updateObj['product_id'])
-            console.log(result)
             res.send(result)
         })
         app.post('[be]/delete', function(req, res){
             var key = req.params
 
             var result = sqlAgent.query('DELETE FROM products WHERE product_id = ' + key)
-            console.log(result)
             res.send(result)
         })
     </script>

@@ -17,13 +17,15 @@ const getVisibleTodos = (todos, filter) => {
 const mapStateToProps = (state) => {
   const { data,
     headers,
-    editRows
+    editRows,
+    addRows
   } = state
 
   return {
     data,
     headers,
-    editRows
+    editRows,
+    addRows
   }
 }
 

@@ -20,16 +20,16 @@ export default class Cell extends Component {
   }
 
   shouldComponentUpdate() {
-    return !this.props.inEditMode 
+    return !this.props.mode
   }
 
   render() {
-    const {  propertyKey, value, inEditMode, onCellChange  } = this.props
+    const {  propertyKey, value, mode, onCellChange  } = this.props
     return <td>
         <input
             name={propertyKey}
             defaultValue={value}
-            readOnly={inEditMode ? '' : 'readonly'}
+            readOnly={mode ? '' : 'readonly'}
             onBlur={(event) => {this.setState({[event.target.name] : event.target.value}); onCellChange(event)}}
         />
     </td>

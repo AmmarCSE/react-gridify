@@ -10,9 +10,13 @@ function headerReducer(state = [], action){
 }
 
 function dataReducer(state = [], action){
-console.log(state)
-console.log(action)
   switch (action.type) {
+    case 'ADD_ROW':
+        return [
+            ...state,
+            action.newRow
+          ]
+    case 'ADDED_ROW':
     case 'COMMITTED_ROW':
         let cloned = [
             ...state
@@ -48,10 +52,27 @@ function editRowsReducer(state = [], action){
   }
 }
 
+function addRowsReducer(state = [], action){
+  switch (action.type) {
+    case 'ADD_ROW':
+        return [
+            ...state,
+            action.index
+          ]
+    case 'ADDED_ROW':
+        return [
+            ...state.filter(index => index != action.index)
+          ]
+    default:
+      return state
+  }
+}
+
 const gridApp = combineReducers({
     data : dataReducer,
     headers : headerReducer,
-    editRows: editRowsReducer
+    editRows: editRowsReducer,
+    addRows: addRowsReducer
 })
 
 export default gridApp

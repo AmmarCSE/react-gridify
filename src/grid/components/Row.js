@@ -2,22 +2,22 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Cell from './Cell'
 import utils from '../resources/Utils'
-import { editRow, commitRow, deleteRow } from '../actions/index'
+import { editRow, commitRow, deleteRow, commitAddRow } from '../actions/index'
 import  {rowKey}  from '~/src/grid/config'
 
 export default class Row extends Component {
   constructor(props) {
     super(props)
-    let handlers = ['onEditRowClick', 'onCommitRowClick', 'onCellChange', 'onDeleteRowClick'];
+    let handlers = ['onEditRowClick', 'onCommitRowClick', 'onCellChange', 'onDeleteRowClick', 'onCommitNewRowClick']
     handlers.forEach(handler => {
-        this[handler] = this[handler].bind(this);
-    });
+        this[handler] = this[handler].bind(this)
+    })
     /*let handlers = [this.onEditRowClick, this.onCommitRowClick, this.onCellChange, this.onDeleteRowClick]
     handlers.forEach(handler => handler = handler.bind(this))*/
   }
 
   shouldComponentUpdate() {
-    return !this.props.inEditMode 
+    return !this.props.mode
   }
 
   onEditRowClick() {
@@ -32,8 +32,13 @@ export default class Row extends Component {
     this.props.dispatch(commitRow(this.state, this.props.index))
   }
 
+  onCommitNewRowClick() {
+    this.state = this.state || {}
+    this.props.dispatch(commitAddRow(this.state, this.props.index))
+  }
+
   onDeleteRowClick() {
-    confirm('Are you sure you want to delete this row?') && this.props.dispatch(deleteRow(this.props.index), this.props.rowData[rowKey])
+    confirm(`Are you sure you want to ${this.props.mode == 'edit' ? 'delete' : 'cancel'} this row?`) && this.props.dispatch(deleteRow(this.props.index), this.props.rowData[rowKey])
   }
 
   onCellChange(event) {
@@ -42,7 +47,7 @@ export default class Row extends Component {
   }
 
   render() {
-    const { rowData, headers, inEditMode } = this.props
+    const { rowData, headers, mode } = this.props
     return(
         <tr>
             {
@@ -53,7 +58,7 @@ export default class Row extends Component {
                         key={utils.generateReactKey()} 
                         propertyKey={rowKey}
                         value={rowData[rowKey]}
-                        inEditMode={inEditMode}
+                        mode={mode}
                         onCellChange={this.onCellChange}
                     />
                 })
@@ -61,12 +66,29 @@ export default class Row extends Component {
 
             {/*have these here rather than separate components since their actions are tied to the whole row*/}
             <td>
-                { !inEditMode ? <div>
-                        <label onClick={this.onEditRowClick}>Edit</label>
-                        <label onClick={this.onDeleteRowClick}>Delete</label>
-                    </div>
-                    :   
-                    <label onClick={this.onCommitRowClick}>Commit</label>
+                {
+                    (() => { 
+                        if(!mode){  
+                            return(
+                                <div>
+                                    <label onClick={this.onEditRowClick}>Edit</label>
+                                    <label onClick={this.onDeleteRowClick}>Delete</label>
+                                </div>
+                            )
+                        }   
+                        else if(mode == 'edit'){
+                            return <label onClick={this.onCommitRowClick}>Commit</label>
+                        }   
+                        else if(mode == 'add'){
+                            return (
+                                <div>
+                                    <label onClick={this.onCommitNewRowClick}>Commit</label>
+                                    <label onClick={this.onDeleteRowClick}>Cancel</label>
+                                </div>
+                            )
+                        }   
+                
+                    })()
                 }
             </td>
         </tr>
