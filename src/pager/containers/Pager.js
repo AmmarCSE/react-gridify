@@ -3,11 +3,14 @@ import { connect } from 'react-redux'
 import PagerView from '../components/PagerView'
 
 const mapStateToProps = (state) => {
-  const { pageCount
+  const { 
+    pageCount
+    , currentPage 
   } = state
 
   return {
     pageCount
+    , currentPage 
   }
 }
 

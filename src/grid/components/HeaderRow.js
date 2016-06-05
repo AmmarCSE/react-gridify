@@ -1,7 +1,7 @@
 import React from 'react'
 //import FilterLink from '../containers/FilterLink'
 import Header from './Header'
-import utils from '../resources/Utils'
+import {generateReactKey} from '~/src/utils/utils'
 
 const HeaderRow = ({ headers }) => (
     <tr>
@@ -10,7 +10,7 @@ const HeaderRow = ({ headers }) => (
                 let key = Object.keys(headerKeyVal)[0];
 
                 return <Header 
-                    key={utils.generateReactKey()} 
+                    key={generateReactKey()} 
                     header={headerKeyVal[key]}
                 />
             })

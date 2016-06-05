@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Cell from './Cell'
-import utils from '../resources/Utils'
+import {generateReactKey} from '~/src/utils/utils'
 import { editRow, commitRow, deleteRow, commitAddRow } from '../actions/index'
 import  {rowKey}  from '~/src/grid/config'
 
@@ -55,7 +55,7 @@ export default class Row extends Component {
                 headers.map(headerKeyVal => {
                     let rowKey = Object.keys(headerKeyVal)[0];
                     return <Cell 
-                        key={utils.generateReactKey()} 
+                        key={generateReactKey()} 
                         propertyKey={rowKey}
                         value={rowData[rowKey]}
                         mode={mode}

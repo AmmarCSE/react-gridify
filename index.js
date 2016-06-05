@@ -3,9 +3,8 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-import gridApp from './src/grid/reducers'
 import App from './src/App'
-import configureStore from './src/grid/store/configureStore'
+import configureStore from './src/store/configureStore'
 
 const store = configureStore()
 

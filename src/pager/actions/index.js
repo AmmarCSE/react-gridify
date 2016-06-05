@@ -1,15 +1,11 @@
-import {ajax} from '../../utils/utils'
+export const REQUEST_PAGE = 'REQUEST_PAGE'
 
-export const REQUEST_GRIDDATA = 'REQUEST_GRIDDATA'
-export const RECEIVE_GRIDDATA = 'RECEIVE_GRIDDATA'
-export const ADD_ROW = 'ADD_ROW'
-export const ADDED_ROW = 'ADDED_ROW'
-export const EDIT_ROW = 'EDIT_ROW'
-export const COMMITED_ROW = 'COMMITED_ROW'
-export const DELETED_ROW = 'DELETED_ROW'
-export const SELECT_REDDIT = 'SELECT_REDDIT'
-export const INVALIDATE_REDDIT = 'INVALIDATE_REDDIT'
-
+export function requestPage(index) {
+  return {
+    type: REQUEST_PAGE,
+    index
+  }
+}
 export function addRow(index) {
   return {
     type: ADD_ROW,

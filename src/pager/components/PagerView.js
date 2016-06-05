@@ -1,15 +1,20 @@
-import React, { Component } from 'react'
+import React, { Component, ReactDOM } from 'react'
 import { connect } from 'react-redux'
 import {generateReactKey} from '~/src/utils/utils'
+import {requestPage} from '../actions'
 
 export default class PagerView extends Component {
   constructor(props) {
     super(props)
   }
 
+  onPageClick(page) {
+    this.props.dispatch(requestPage(page))
+  }
 
   render() {
-    let { pageCount } = this.props
+    let { pageCount, currentPage } = this.props
+console.log(currentPage)
     const pageSeperator = ['...']
     let pageSections = []
     pageCount = 3
@@ -40,10 +45,12 @@ export default class PagerView extends Component {
 
     let pages = []
     //pageSections.forEach(pageSection => console.log(pageSection.map(page => <span>{page}</span>)))
-    pageSections.forEach(pageSection => pages = pages.concat(pageSection.map(page => <span key={generateReactKey()}>{page}</span>)))
+    pageSections.forEach(pageSection => pages = pages.concat(pageSection.map(page => <span onClick={this.onPageClick.bind(this, page)} key={generateReactKey()}>{page}</span>)))
 
     return <div>
         {pages}
     </div>
   }
 }
+
+export default connect()(PagerView);

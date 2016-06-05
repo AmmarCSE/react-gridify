@@ -4,8 +4,6 @@ import { selectReddit, fetchPostsIfNeeded, invalidateReddit } from '../src/grid/
 import Grid from '../src/grid/containers/Grid'
 import Pager from '../src/pager/containers/Pager'
 
-import defaultData from '../src/grid/resources/DefaultData'
-
 class App extends Component {
   constructor(props) {
     super(props)
