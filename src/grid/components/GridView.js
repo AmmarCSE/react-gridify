@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import HeaderRow from './HeaderRow'
 import Row from './Row'
-import utils from '../resources/Utils'
+import {generateReactKey} from '~/src/utils/utils'
 import { addRow } from '../actions/index'
 
 export default class GridView extends Component {
@@ -35,7 +35,7 @@ export default class GridView extends Component {
                         }
 
                         return <Row 
-                            key={utils.generateReactKey()} 
+                            key={generateReactKey()} 
                             rowData={dataRow} 
                             headers={headers}
                             index={index}

@@ -28,7 +28,7 @@
             var data = sqlAgent.query('SELECT product_id FROM products').map(function(row){return +row.product_id})
             console.log(data)
             console.log(Math.max.apply(Math, data))
-            var newKey = Math.max.apply(Math, data)+1
+            var newKey = Math.max.apply(Math, data) + 1
 
             var insertObj = req.params
             insertObj['product_id'] = newKey

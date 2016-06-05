@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { selectReddit, fetchPostsIfNeeded, invalidateReddit } from '../src/grid/actions'
 import Grid from '../src/grid/containers/Grid'
+import Pager from '../src/pager/containers/Pager'
 
 import defaultData from '../src/grid/resources/DefaultData'
 
@@ -38,7 +39,10 @@ class App extends Component {
 
   render() {
     return (
-        <Grid />
+        <div>
+            <Grid />
+            <Pager />
+        </div>
     )
   }
 }
