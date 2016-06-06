@@ -8,7 +8,6 @@ export const EDIT_ROW = 'EDIT_ROW'
 export const COMMITED_ROW = 'COMMITED_ROW'
 export const DELETED_ROW = 'DELETED_ROW'
 export const SELECT_REDDIT = 'SELECT_REDDIT'
-export const INVALIDATE_REDDIT = 'INVALIDATE_REDDIT'
 
 export function addRow(index) {
   return {
@@ -66,20 +65,6 @@ export function deletedRow(index) {
   }
 }
 
-export function selectReddit(reddit) {
-  return {
-    type: SELECT_REDDIT,
-    reddit
-  }
-}
-
-export function invalidateReddit(reddit) {
-  return {
-    type: INVALIDATE_REDDIT,
-    reddit
-  }
-}
-
 function requestGridData(search) {
   return {
     type: REQUEST_GRIDDATA,
@@ -100,15 +85,12 @@ function fetchGridData(search) {
   return dispatch => {
     dispatch(requestGridData(search))
     ajax('GET', '[be]/search', (json) => { dispatch(receiveGridData(search, json)) } )
-    /*return fetch(`https://www.search.com/r/${search}.json`)
-      .then(response => response.json())
-      .then(json => dispatch(receivePosts(search, json)))*/
   }
 }
 
-function shouldFetchPosts(state, reddit) {
-    return true
-  const posts = state.postsByReddit[reddit]
+function shouldFetchGridData(state, search) {
+  return true
+  const posts = state.postsByReddit[search]
   if (!posts) {
     return true
   }
@@ -118,10 +100,10 @@ function shouldFetchPosts(state, reddit) {
   return posts.didInvalidate
 }
 
-export function fetchPostsIfNeeded(reddit) {
+export function fetchGridDataIfNeeded(search) {
   return (dispatch, getState) => {
-    if (shouldFetchPosts(getState(), reddit)) {
-      return dispatch(fetchGridData(reddit))
+    if (shouldFetchGridData(getState(), search)) {
+      return dispatch(fetchGridData(search))
     }
   }
 }

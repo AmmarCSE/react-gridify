@@ -67,6 +67,20 @@
             var result = sqlAgent.query('DELETE FROM products WHERE product_id = ' + key)
             res.send(result)
         })
+        app.get('[be]/filters', function(req, res){
+            res.send({
+                filters :
+                    {
+                        category: {
+                            header: 'Category',
+                            filterType: 'multiple',
+                            items: [
+                                { key: 1, value: 'Sporting Goods'}
+                            ]
+                        } 
+                    } 
+           })
+        })
     </script>
     <script src="dist/bundle.js"></script>
   </body>

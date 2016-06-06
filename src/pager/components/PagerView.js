@@ -14,7 +14,6 @@ export default class PagerView extends Component {
 
   render() {
     let { pageCount, currentPage } = this.props
-console.log(currentPage)
     const pageSeperator = ['...']
     let pageSections = []
     pageCount = 3
@@ -44,8 +43,11 @@ console.log(currentPage)
     }
 
     let pages = []
-    //pageSections.forEach(pageSection => console.log(pageSection.map(page => <span>{page}</span>)))
-    pageSections.forEach(pageSection => pages = pages.concat(pageSection.map(page => <span onClick={this.onPageClick.bind(this, page)} key={generateReactKey()}>{page}</span>)))
+    pageSections.forEach(pageSection => 
+        pages = pages.concat(
+            pageSection.map(page => <span onClick={this.onPageClick.bind(this, page)} key={generateReactKey()}>{page}</span>)
+        )
+    )
 
     return <div>
         {pages}
