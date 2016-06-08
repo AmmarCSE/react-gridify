@@ -81,10 +81,10 @@ function receiveGridData(search, json) {
   }
 }
 
-function fetchGridData(search) {
+export function fetchGridData(search) {
   return dispatch => {
     dispatch(requestGridData(search))
-    ajax('GET', '[be]/search', (json) => { dispatch(receiveGridData(search, json)) } )
+    ajax('GET', '[be]/search', (json) => { dispatch(receiveGridData(search, json)) }, search)
   }
 }
 

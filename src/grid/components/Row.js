@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Cell from './Cell'
 import {generateReactKey} from '~/src/utils/utils'
 import { editRow, commitRow, deleteRow, commitAddRow } from '../actions/index'
-import  {rowKey}  from '~/src/grid/config'
+import  {rowKey}  from '~/src/utils/config'
 
 export default class Row extends Component {
   constructor(props) {
