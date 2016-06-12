@@ -7,7 +7,7 @@ export const ADDED_ROW = 'ADDED_ROW'
 export const EDIT_ROW = 'EDIT_ROW'
 export const COMMITED_ROW = 'COMMITED_ROW'
 export const DELETED_ROW = 'DELETED_ROW'
-export const SELECT_REDDIT = 'SELECT_REDDIT'
+export const CANCELED_OPERATION_ROW = 'CANCELED_OPERATION_ROW'
 
 export function addRow(index) {
   return {
@@ -53,6 +53,7 @@ export function commitedRow(index, newRow) {
 }
 
 export function deleteRow(index, key) {
+console.log(key)
   return dispatch => {
     ajax('POST', '[be]/delete', () => { dispatch(deletedRow(index)) }, key )
   }
@@ -61,6 +62,13 @@ export function deleteRow(index, key) {
 export function deletedRow(index) {
   return {
     type: DELETED_ROW,
+    index 
+  }
+}
+
+export function canceledOperationRow(index) {
+  return {
+    type: CANCELED_OPERATION_ROW,
     index 
   }
 }

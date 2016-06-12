@@ -18,10 +18,6 @@ export function currentPageReducer(state = 0, action){
   switch (action.type) {
     case 'REQUEST_PAGE':
         return action.index
-    case 'ADDED_ROW':
-        return [
-            ...state.filter(index => index != action.index)
-          ]
     default:
       return state
   }

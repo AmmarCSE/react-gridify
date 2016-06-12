@@ -1,0 +1,105 @@
+@import "common.less";
+@alternate-row-background: #EAEEF1;
+@edit-row-background: #F3F387;
+@icon-width-spacing: 10px;
+
+.grid-components {
+    display:table;
+    margin: auto;
+
+    .grid-container {
+        border: @border;   
+        border-radius: 5px;   
+
+        .grid {
+            border-collapse: collapse;
+            margin: auto;
+
+            tr:nth-child(odd) {
+                td, input {
+                    background: @alternate-row-background;
+                }
+            }
+
+            tr.edit {
+                td, input {
+                    background: @edit-row-background;
+                }
+            }
+
+            thead th{
+                height: 30px;
+            }
+
+            tbody tr{
+                border-top: @border;   
+
+                td {
+                    padding: 0;
+                    border-right: @border;   
+
+                    * {
+                        height: 40px;
+                        width: 160px;
+                    }
+
+                    input {
+                        padding-left: 7px;
+                        border:none;
+
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+
+                    .edit-row {
+                        background-image: url('../assets/images/edit.png');
+
+                        .icon(@icon-width-spacing)
+                    }
+                    .delete-row {
+                        background-image: url('../assets/images/delete.png');
+
+                        .icon(@icon-width-spacing)
+                    }
+                    .commit-row, .add-row-icon {
+                        background-image: url('../assets/images/commit.png');
+
+                        .icon(@icon-width-spacing)
+                    }
+                    .cancel-operation-row {
+                        background-image: url('../assets/images/cancel.png');
+
+                        .icon(@icon-width-spacing)
+                    }
+                }
+
+                td:last-child {
+                    display:inline-block;
+                    width: 80px;
+                    height:46px;
+                    border: none;
+                }
+            }
+        }
+    }
+
+    .add-row-container{
+        text-align:right;
+        margin-top: 10px;
+
+        .add-row{
+            width: 100px;
+            display: inline-block;
+            text-align: center;
+            background: #FBE6BF;
+            padding: 10px;
+            border-radius: 5px;
+            cursor:pointer;
+
+            &:hover{
+                background: orange;
+            }
+        }
+    }
+}

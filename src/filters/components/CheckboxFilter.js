@@ -13,7 +13,7 @@ export default class CheckboxFilter extends Component {
 
   render() {
     const { filterIdentifier, filterOperator, items, triggerFilterHandler } = this.props
-console.log(items)
+
     return (
       <ul>
         {

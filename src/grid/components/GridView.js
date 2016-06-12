@@ -18,34 +18,38 @@ export default class GridView extends Component {
 
   render() {
     const { data, headers, editRows, onEditRowClick, addRows } = this.props
-    return <div>
-        <table>
-            <thead>
-                <HeaderRow headers={headers}/>
-            </thead>
-            <tbody>
-                {
-                    data.map((dataRow, index) =>{
-                        let mode = ''
-                        if(~editRows.indexOf(index)){
-                            mode = 'edit'
-                        }
-                        if(~addRows.indexOf(index)){
-                            mode = 'add'
-                        }
+    return <div className="grid-components">
+        <div className="grid-container">
+            <table className="grid">
+                <thead>
+                    <HeaderRow headers={headers}/>
+                </thead>
+                <tbody>
+                    {
+                        data.map((dataRow, index) =>{
+                            let mode = ''
+                            if(~editRows.indexOf(index)){
+                                mode = 'edit'
+                            }
+                            if(~addRows.indexOf(index)){
+                                mode = 'add'
+                            }
 
-                        return <Row 
-                            key={generateReactKey()} 
-                            rowData={dataRow} 
-                            headers={headers}
-                            index={index}
-                            mode={mode}
-                        />
-                    })
-                }
-            </tbody>
-        </table>
-        <label onClick={this.onAddRowClick}>Add New</label>
+                            return <Row 
+                                key={generateReactKey()} 
+                                rowData={dataRow} 
+                                headers={headers}
+                                index={index}
+                                mode={mode}
+                            />
+                        })
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div className="add-row-container">
+            <span className="add-row" onClick={this.onAddRowClick}>Add New</span>
+        </div>
     </div>
   }
 }

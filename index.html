@@ -2,9 +2,12 @@
 <html>
   <head>
     <title>Redux Todos example</title>
+    <link rel="stylesheet" type="text/css" href="dist/common.css"/>
+    <link rel="stylesheet" type="text/css" href="dist/grid.css"/>
+    <link rel="stylesheet" type="text/css" href="dist/pager.css"/>
   </head>
   <body>
-    <div class="todoapp" id="root">
+    <div id="root">
     </div>
     <script src="dist/browser-endpoints.js"></script>
     <script src="dist/local-storage-sql.js"></script>
@@ -51,7 +54,10 @@
             var updateObj = req.params
             var keys = Object.keys(updateObj)
 
-            if(keys.length == 1) return
+            if(keys.length == 1){
+                res.send(false)
+                return
+            }
 
             var updateSet = keys.map(
                 function(key){
@@ -65,6 +71,7 @@
         app.post('[be]/delete', function(req, res){
             var key = req.params
 
+            console.log(req.params)
             var result = sqlAgent.query('DELETE FROM products WHERE product_id = ' + key)
             res.send(result)
         })

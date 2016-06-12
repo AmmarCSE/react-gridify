@@ -20,6 +20,14 @@ gulp.task('scripts', () => {
     .pipe(reload({stream: true}));
 });
 
+gulp.task('styles', () => {
+    return gulp.src('assets/less/*.less')
+        .pipe($.less())
+        .on('error', handleError)
+        .pipe(gulp.dest('dist/'))
+        .pipe(reload({stream: true}));
+});
+
 gulp.task('serve', [ 'scripts'], () => {
   browserSync({
     notify: false,
@@ -37,6 +45,7 @@ gulp.task('serve', [ 'scripts'], () => {
   ]).on('change', reload);
 
   gulp.watch('src/**/*.js', ['scripts']);
+  gulp.watch('assets/less/*.less', ['styles']);
 });
 
 function handleError (error) {

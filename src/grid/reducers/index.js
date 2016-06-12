@@ -15,7 +15,7 @@ export function dataReducer(state = [], action){
             action.newRow
           ]
     case 'ADDED_ROW':
-    case 'COMMITTED_ROW':
+    case 'COMMITED_ROW':
         let cloned = [
             ...state
           ]
@@ -41,7 +41,8 @@ export function editRowsReducer(state = [], action){
             ...state,
             action.index
           ]
-    case 'COMMITTED_ROW':
+    case 'CANCELED_OPERATION_ROW':
+    case 'COMMITED_ROW':
         return [
             ...state.filter(index => index != action.index)
           ]
@@ -57,6 +58,7 @@ export function addRowsReducer(state = [], action){
             ...state,
             action.index
           ]
+    case 'CANCELED_OPERATION_ROW':
     case 'ADDED_ROW':
         return [
             ...state.filter(index => index != action.index)

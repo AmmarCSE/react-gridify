@@ -20,6 +20,7 @@ export default class FiltersView extends Component {
             }
             return aggregate
         }, [])
+    //let filterItems = Object.keys(this.refs).map(filterHolderKey => this.refs[filterHolderKey].generateFilterItem())
     triggerFilter(triggerFilterCallback, filterItems, this.props.dispatch)
   }
 
