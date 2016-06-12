@@ -1,11 +1,18 @@
 @import "common.less";
 
-.page{
-    background: blue;
-    cursor: pointer;
-    color: white;
-    padding: 5px;
+.pager{
+    
+    .page{
+        background: #4091D2;
+        cursor: pointer;
+        color: white;
+        padding: 5px;
 
-    .icon(@width-spacing:5px)
+        .icon(@width-spacing:5px);
 
+        &:hover{
+            background: #0074D2;
+        }
+
+    }
 }

@@ -2,8 +2,8 @@ body {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
 }
-.page {
-  background: blue;
+.pager .page {
+  background: #4091D2;
   color: white;
   padding: 5px;
   display: inline-block;
@@ -16,4 +16,7 @@ body {
   border-radius: 5px;
   margin-left: 5px;
   margin-right: 5px;
+}
+.pager .page:hover {
+  background: #0074D2;
 }

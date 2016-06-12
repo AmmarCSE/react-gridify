@@ -49,7 +49,7 @@ export default class PagerView extends Component {
         )
     )
 
-    return <div>
+    return <div className="pager">
         {pages}
     </div>
   }
