@@ -2,9 +2,12 @@
 <html>
   <head>
     <title>Redux Todos example</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css"/>
     <link rel="stylesheet" type="text/css" href="dist/common.css"/>
     <link rel="stylesheet" type="text/css" href="dist/grid.css"/>
     <link rel="stylesheet" type="text/css" href="dist/pager.css"/>
+    <link rel="stylesheet" type="text/css" href="dist/filter.css"/>
   </head>
   <body>
     <div id="root">
@@ -16,14 +19,31 @@
         var sqlAgent = browserSqlAgent()
         app.get('[be]/search', function(req, res){
             var queryWhere = buildWhere(req.params || [])
-
-            var data = sqlAgent.query('SELECT product_id, category_name, name, stocked, price FROM products JOIN categories ON products.category_id = categories.category_id'+queryWhere)
+            var data = sqlAgent.query(
+                            'SELECT product_id, category_name, brand_name, supplier_name, name, quantity, price FROM products'
+                            +' JOIN categories ON products.category_id = categories.category_id'
+                            +' JOIN brands ON products.brand_id = brands.brand_id'
+                            +' JOIN suppliers ON products.supplier_id = suppliers.supplier_id'
+                            +queryWhere
+                            //+' LIMIT 18, 3'
+                        )
+console.log(                            'SELECT product_id, category_name, brand_name, supplier_name, name, quantity, price FROM products'
+                            +' JOIN categories ON products.category_id = categories.category_id'
+                            +' JOIN brands ON products.brand_id = brands.brand_id'
+                            +' JOIN suppliers ON products.supplier_id = suppliers.supplier_id'
+                            +queryWhere
+                            //+' LIMIT 18, 3'
+)
+                        
             res.send({
                 headers :
                     [
                         {category_name : 'Category'},
-                        {name: 'Name'}, {price:'Price'},
-                        {stocked:'Stocked'}
+                        {name: 'Name'}, 
+                        {brand_name : 'Brand'},
+                        {supplier_name : 'Supplier'},
+                        {price:'Price'},
+                        {quantity:'Quantity'}
                     ],
                 data : data
             })
@@ -78,28 +98,15 @@
         app.get('[be]/filters', function(req, res){
             req.params = req.params || []
             var queryWhere = buildWhere(req.params)
-            var data = sqlAgent.query('SELECT category_id, category_name FROM categories ' + queryWhere)
+            var categoryData = sqlAgent.query('SELECT category_id, category_name FROM categories ' + queryWhere)
+            var brandData = sqlAgent.query('SELECT brand_id, brand_name FROM brands ' + queryWhere)
+            var supplierData = sqlAgent.query('SELECT supplier_id, supplier_name FROM suppliers ' + queryWhere)
             res.send({
                 filters :
                     {
-                        category: {
-                            header: 'Category',
-                            filterType: 'multiple',
-                            filterIdentifier: 'category_id',
-                            filterOperator: '=',
-                            items: data.map(function(row){ 
-                                var filter = { key: row.category_id, value: row.category_name }
-
-                                var existsInParams = req.params.filter(function(item){
-                                    return item.identifier == 'category_id' && item.value == row.category_id
-                                }).length
-                                if(existsInParams){
-                                    filter.selected = true
-                                }
-
-                                return filter
-                            })
-                        } 
+                        category: buildFilter('Category', 'multiple', 'category_id', '=', 'category_name', categoryData, req.params), 
+                        brand: buildFilter('Brand', 'multiple', 'brand_id', '=', 'brand_name', brandData, req.params), 
+                        supplier: buildFilter('Supplier', 'multiple', 'supplier_id', '=', 'supplier_name', supplierData, req.params)
                     } 
            })
         })
@@ -115,6 +122,26 @@
         }
 
         return queryWhere
+    }
+    function buildFilter(header, type, id, op, nameColumn, data, reqParams){
+        return {
+                header: header,
+                filterType: type,
+                filterIdentifier: id,
+                filterOperator: op,
+                items: data.map(function(row){ 
+                    var filter = { key: row[id], value: row[nameColumn] }
+
+                    var existsInParams = reqParams.filter(function(item){
+                        return item.identifier == id && item.value == row[id]
+                    }).length
+                    if(existsInParams){
+                        filter.selected = true
+                    }
+
+                    return filter
+                })
+        } 
     }
     </script>
     <script src="dist/bundle.js"></script>

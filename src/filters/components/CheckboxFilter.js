@@ -17,9 +17,11 @@ export default class CheckboxFilter extends Component {
     return (
       <ul>
         {
-            items.map((item) =>
+            items.map((item, index) =>
               <li key={generateReactKey()}>
+                <div className="checkbox checkbox-primary">
                     <input 
+                        id={filterIdentifier+index}
                         type="checkbox" 
                         value={item.key} 
                         checked={item.selected ? 'checked' : ''}
@@ -30,7 +32,10 @@ export default class CheckboxFilter extends Component {
                             this.filterItem = filterItem
                             triggerFilterHandler()
                         }}/>
-                    {item.value}
+                    <label htmlFor={filterIdentifier+index}>
+                        {item.value}
+                    </label>
+                </div>
                 </li>
             )
         }

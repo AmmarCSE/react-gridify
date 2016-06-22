@@ -27,6 +27,12 @@ export default class FiltersView extends Component {
   render() {
     const { filters } = this.props
     return <div>
+        <div className="checkbox checkbox-primary">
+            <input id="checkbox2" className="styled" type="checkbox" defualtValue="checked"/>
+            <label htmlFor="checkbox2">
+                Primary
+            </label>
+        </div>
         {
             Object.keys(filters).map((filterKey, index) =>{
                 return <FilterHolder 

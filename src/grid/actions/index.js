@@ -53,7 +53,6 @@ export function commitedRow(index, newRow) {
 }
 
 export function deleteRow(index, key) {
-console.log(key)
   return dispatch => {
     ajax('POST', '[be]/delete', () => { dispatch(deletedRow(index)) }, key )
   }
