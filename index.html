@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Redux Todos example</title>
+    <title>react-gridify example</title>
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css"/>
     <link rel="stylesheet" type="text/css" href="dist/common.css"/>
@@ -15,26 +15,16 @@
     <script src="dist/browser-endpoints.js"></script>
     <script src="dist/local-storage-sql.js"></script>
     <script>
+        var pageSize = 5 
         var app = browserServer()
         var sqlAgent = browserSqlAgent()
         app.get('[be]/search', function(req, res){
-            var queryWhere = buildWhere(req.params || [])
-            var data = sqlAgent.query(
-                            'SELECT product_id, category_name, brand_name, supplier_name, name, quantity, price FROM products'
-                            +' JOIN categories ON products.category_id = categories.category_id'
-                            +' JOIN brands ON products.brand_id = brands.brand_id'
-                            +' JOIN suppliers ON products.supplier_id = suppliers.supplier_id'
-                            +queryWhere
-                            //+' LIMIT 18, 3'
-                        )
-console.log(                            'SELECT product_id, category_name, brand_name, supplier_name, name, quantity, price FROM products'
-                            +' JOIN categories ON products.category_id = categories.category_id'
-                            +' JOIN brands ON products.brand_id = brands.brand_id'
-                            +' JOIN suppliers ON products.supplier_id = suppliers.supplier_id'
-                            +queryWhere
-                            //+' LIMIT 18, 3'
-)
                         
+            //var data = retrieveSearchData(req.params.filterItems, (req.params || {page: '10'}).page)
+            req.params = req.params || {}
+
+            var data = retrieveSearchData(req.params.filterItems, req.params.page || '0')
+
             res.send({
                 headers :
                     [
@@ -48,6 +38,18 @@ console.log(                            'SELECT product_id, category_name, brand
                 data : data
             })
         })
+
+        app.get('[be]/pagerData', function(req, res){
+            req.params = req.params || {}
+
+            var data = retrieveSearchData(req.params.filterItems)
+            var pageCount = Math.ceil(data.length/pageSize)
+            res.send({
+                pageCount: pageCount,
+                currentPage: 1
+            })
+        })
+
         app.post('[be]/add', function(req, res){
             var data = sqlAgent.query('SELECT product_id FROM products').map(function(row){return +row.product_id})
             console.log(data)
@@ -70,6 +72,7 @@ console.log(                            'SELECT product_id, category_name, brand
             var result = sqlAgent.query('INSERT INTO products ('+insertColumns+') VALUES('+insertValues+')')
             res.send(result)
         })
+
         app.post('[be]/update', function(req, res){
             var updateObj = req.params
             var keys = Object.keys(updateObj)
@@ -98,9 +101,9 @@ console.log(                            'SELECT product_id, category_name, brand
         app.get('[be]/filters', function(req, res){
             req.params = req.params || []
             var queryWhere = buildWhere(req.params)
-            var categoryData = sqlAgent.query('SELECT category_id, category_name FROM categories ' + queryWhere)
-            var brandData = sqlAgent.query('SELECT brand_id, brand_name FROM brands ' + queryWhere)
-            var supplierData = sqlAgent.query('SELECT supplier_id, supplier_name FROM suppliers ' + queryWhere)
+            var categoryData = sqlAgent.query('SELECT DISTINCT category_id, category_name FROM categories JOIN products ON products.category_id = categories.category_id ' + queryWhere)
+            var brandData = sqlAgent.query('SELECT DISTINCT brand_id, brand_name FROM brands JOIN products ON products.brand_id = brands.brand_id ' + queryWhere)
+            var supplierData = sqlAgent.query('SELECT DISTINCT supplier_id, supplier_name FROM suppliers JOIN products ON products.supplier_id = suppliers.supplier_id ' + queryWhere)
             res.send({
                 filters :
                     {
@@ -142,6 +145,21 @@ console.log(                            'SELECT product_id, category_name, brand
                     return filter
                 })
         } 
+    }
+    function retrieveSearchData(filterItems, page){
+        var queryWhere = buildWhere(filterItems || [])
+
+        var queryPage = ''
+        page && (queryPage = ' LIMIT '+(page*pageSize)+', '+pageSize)
+
+        return sqlAgent.query(
+                    'SELECT product_id, category_name, brand_name, supplier_name, name, quantity, price FROM products'
+                    +' JOIN categories ON products.category_id = categories.category_id'
+                    +' JOIN brands ON products.brand_id = brands.brand_id'
+                    +' JOIN suppliers ON products.supplier_id = suppliers.supplier_id'
+                    +queryWhere
+                    +queryPage
+                )
     }
     </script>
     <script src="dist/bundle.js"></script>

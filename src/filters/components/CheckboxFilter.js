@@ -8,7 +8,19 @@ export default class CheckboxFilter extends Component {
     this.generateFilterItem = this.generateFilterItem.bind(this)
   }
   generateFilterItem() {
+    if(typeof(this.filterItem) == 'undefined' && this.props.items[0].selected){
+        this.filterItem = this._createFilterItem(this.props.items[0].key)
+    }
+
     return this.filterItem
+  }
+
+  _createFilterItem(value) {
+    return { 
+        identifier : this.props.filterIdentifier, 
+        value,
+        operator: this.props.filterOperator, selected: true 
+    } 
   }
 
   render() {
@@ -25,13 +37,15 @@ export default class CheckboxFilter extends Component {
                         type="checkbox" 
                         value={item.key} 
                         checked={item.selected ? 'checked' : ''}
-                        onChange={(event) => {
-                            let filterItem = event.target.checked ? 
-                                { identifier : this.props.filterIdentifier, value: event.target.value, operator: this.props.filterOperator, selected: true } 
-                                : false
-                            this.filterItem = filterItem
-                            triggerFilterHandler()
-                        }}/>
+                        onChange={
+                            (event) => {
+                                let filterItem = event.target.checked ? 
+                                    this._createFilterItem(event.target.value)
+                                    : false
+                                this.filterItem = filterItem
+                                triggerFilterHandler()
+                            }
+                        }/>
                     <label htmlFor={filterIdentifier+index}>
                         {item.value}
                     </label>

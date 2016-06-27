@@ -9,38 +9,40 @@ export default class FiltersView extends Component {
   constructor(props) {
     super(props)
     this.handleFilterTrigger = this.handleFilterTrigger.bind(this)
+    this.retrieveFilterItems = this.retrieveFilterItems.bind(this)
+
+    this.props.injectFilterItemsDelegate(() => this.retrieveFilterItems())
   }
 
   handleFilterTrigger() {
     //retrieve items through child cascade call
-    let filterItems = Object.keys(this.refs).reduce((aggregate, current) => {
+    let filterItems = this.retrieveFilterItems()
+    triggerFilter(triggerFilterCallback, filterItems, this.props.dispatch)
+  }
+
+  retrieveFilterItems() {
+    //retrieve items through child cascade call
+    return Object.keys(this.refs).reduce((aggregate, current) => {
             let filterItem = this.refs[current].generateFilterItem()
             if(filterItem){
                 aggregate.push(filterItem)
             }
             return aggregate
         }, [])
-    //let filterItems = Object.keys(this.refs).map(filterHolderKey => this.refs[filterHolderKey].generateFilterItem())
-    triggerFilter(triggerFilterCallback, filterItems, this.props.dispatch)
   }
 
   render() {
     const { filters } = this.props
+
     return <div>
-        <div className="checkbox checkbox-primary">
-            <input id="checkbox2" className="styled" type="checkbox" defualtValue="checked"/>
-            <label htmlFor="checkbox2">
-                Primary
-            </label>
-        </div>
         {
             Object.keys(filters).map((filterKey, index) =>{
                 return <FilterHolder 
-                        key={generateReactKey()} 
-                        triggerFilterHandler={this.handleFilterTrigger}
-                        filter={filters[filterKey]} 
-                        ref={`filterHolder${index}`}
-                    />
+                            key={generateReactKey()} 
+                            triggerFilterHandler={this.handleFilterTrigger}
+                            filter={filters[filterKey]} 
+                            ref={`filterHolder${index}`}
+                        />
             })
         }
     </div>

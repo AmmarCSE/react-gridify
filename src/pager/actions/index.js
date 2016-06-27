@@ -1,110 +1,20 @@
-export const REQUEST_PAGE = 'REQUEST_PAGE'
+import {ajax} from '../../utils/utils'
 
-export function requestPage(index) {
-  return {
-    type: REQUEST_PAGE,
-    index
-  }
-}
-export function addRow(index) {
-  return {
-    type: ADD_ROW,
-    newRow : {},
-    index
-  }
-}
+export const REQUEST_PAGERDATA = 'REQUEST_PAGERDATA'
+export const RECEIVE_PAGERDATA = 'RECEIVE_PAGERDATA'
+export const PAGER_TRIGGERED = 'PAGER_TRIGGERED'
 
-export function commitAddRow(newRow, index) {
-  return dispatch => {
-    ajax('POST', '[be]/add', (commitedRow) => { dispatch(addedRow(commitedRow, index)) }, newRow )
+export function fetchPagerDataIfNeeded(search) {
+  return (dispatch, getState) => {
+    if (shouldFetchPagerData(getState(), search)) {
+      return dispatch(fetchPagerData(search))
+    }
   }
 }
 
-export function addedRow(newRow, index) {
-  return {
-    type: ADDED_ROW,
-    newRow,
-    index
- }
-}
-
-export function editRow(index) {
-  return {
-    type: EDIT_ROW,
-    index
- }
-}
-
-export function commitRow(touchedRow, index) {
-  return dispatch => {
-    ajax('POST', '[be]/update', () => { dispatch(commitedRow(index, touchedRow)) }, touchedRow )
-  }
-}
-
-export function commitedRow(index, newRow) {
-  return {
-    type: COMMITED_ROW,
-    index,
-    newRow 
- }
-}
-
-export function deleteRow(index, key) {
-  return dispatch => {
-    ajax('POST', '[be]/delete', () => { dispatch(deletedRow(index)) }, key )
-  }
-}
-
-export function deletedRow(index) {
-  return {
-    type: DELETED_ROW,
-    index 
-  }
-}
-
-export function selectReddit(reddit) {
-  return {
-    type: SELECT_REDDIT,
-    reddit
-  }
-}
-
-export function invalidateReddit(reddit) {
-  return {
-    type: INVALIDATE_REDDIT,
-    reddit
-  }
-}
-
-function requestGridData(search) {
-  return {
-    type: REQUEST_GRIDDATA,
-    search
-  }
-}
-
-function receiveGridData(search, json) {
-  return {
-    type: RECEIVE_GRIDDATA,
-    search,
-    data: json.data,
-    headers: json.headers
-  }
-}
-
-function fetchGridData(search) {
-  return dispatch => {
-    dispatch(requestGridData(search))
-    ajax('GET', '[be]/search', (json) => { dispatch(receiveGridData(search, json)) } )
-    /*return fetch(`https://www.search.com/r/${search}.json`)
-      .then(response => response.json())
-      .then(json => dispatch(receivePosts(search, json)))*/
-  }
-}
-
-function shouldFetchPosts(state, reddit) {
-    return true
-  const posts = state.postsByReddit[reddit]
+function shouldFetchPagerData(state, search) {
+  return true
+  const posts = state.postsByReddit[search]
   if (!posts) {
     return true
   }
@@ -114,10 +24,30 @@ function shouldFetchPosts(state, reddit) {
   return posts.didInvalidate
 }
 
-export function fetchPostsIfNeeded(reddit) {
-  return (dispatch, getState) => {
-    if (shouldFetchPosts(getState(), reddit)) {
-      return dispatch(fetchGridData(reddit))
-    }
+export function fetchPagerData(search) {
+  return dispatch => {
+    dispatch(requestPagerData(search))
+    ajax('GET', '[be]/pagerData', (json) => { dispatch(receivePagerData(json)) }, search)
   }
+}
+
+function requestPagerData(search) {
+  return {
+    type: REQUEST_PAGERDATA,
+    search
+  }
+}
+
+function receivePagerData(json) {
+  const {pageCount, currentPage} = json
+  return {
+    type: RECEIVE_PAGERDATA,
+    pageCount, 
+    currentPage
+  }
+}
+
+export function triggerPager(callback, filterItems, dispatch) {
+  callback(filterItems, dispatch)
+  dispatch(fetchPagerData(filterItems))
 }

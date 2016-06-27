@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchFilterDataIfNeeded } from '../src/filters/actions'
-import { fetchGridDataIfNeeded } from '../src/grid/actions'
+import { fetchFilterData } from '../src/filters/actions'
+import { fetchGridData } from '../src/grid/actions'
+import { fetchPagerData } from '../src/pager/actions'
 import Filters from '../src/filters/containers/Filters'
 import Grid from '../src/grid/containers/Grid'
 import Pager from '../src/pager/containers/Pager'
@@ -13,14 +14,15 @@ class App extends Component {
 
   componentDidMount() {
     const { dispatch, search } = this.props
-    dispatch(fetchFilterDataIfNeeded(search))
-    dispatch(fetchGridDataIfNeeded(search))
+    dispatch(fetchFilterData(search))
+    dispatch(fetchGridData(search))
+    dispatch(fetchPagerData(search))
   }
 
   render() {
     return (
         <div>
-            <Filters />
+            <Filters injectFilterItemsDelegate={(implementor) => (retrieveFilterItemsDelegate = implementor)}/>
             <Grid />
             <Pager />
         </div>
@@ -29,3 +31,5 @@ class App extends Component {
 }
 
 export default connect()(App)
+
+export let retrieveFilterItemsDelegate = null

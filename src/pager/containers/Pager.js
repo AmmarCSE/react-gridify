@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-//import { toggleTodo } from '../actions'
 import PagerView from '../components/PagerView'
 
 const mapStateToProps = (state) => {

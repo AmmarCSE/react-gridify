@@ -24,7 +24,7 @@ function shouldFetchFilterData(state, search) {
   return posts.didInvalidate
 }
 
-function fetchFilterData(search) {
+export function fetchFilterData(search) {
   return dispatch => {
     dispatch(requestFilterData(search))
     ajax('GET', '[be]/filters', (json) => { dispatch(receiveFilterData(search, json)) }, search)

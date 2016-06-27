@@ -1,7 +1,7 @@
 import React, { Component, ReactDOM } from 'react'
 import { connect } from 'react-redux'
 import {generateReactKey} from '~/src/utils/utils'
-import {requestPage} from '../actions'
+import {triggerPageCallback} from '~/src/utils/config'
 
 export default class PagerView extends Component {
   constructor(props) {
@@ -9,14 +9,14 @@ export default class PagerView extends Component {
   }
 
   onPageClick(page) {
-    this.props.dispatch(requestPage(page))
+    triggerPageCallback(page, this.props.dispatch)
   }
 
   render() {
-    let { pageCount, currentPage } = this.props
-    const pageSeperator = ['...']
     let pageSections = []
-    pageCount = 3
+    let { pageCount, currentPage } = this.props
+
+    const pageSeperator = ['...']
     //use [...Array(10).keys()] to construct sequential arrays
     //http://stackoverflow.com/a/33352604/3474494
     if(pageCount < 11){
@@ -45,7 +45,7 @@ export default class PagerView extends Component {
     let pages = []
     pageSections.forEach(pageSection => 
         pages = pages.concat(
-            pageSection.map(page => <span className="page" onClick={this.onPageClick.bind(this, page)} key={generateReactKey()}>{page}</span>)
+            pageSection.map(page => <span className="page" onClick={this.onPageClick.bind(this, page-1)} key={generateReactKey()}>{page}</span>)
         )
     )
 
