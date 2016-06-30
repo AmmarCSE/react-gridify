@@ -293,3 +293,22 @@ input[type="checkbox"] .styled:checked + label::after,
 input[type="radio"] .styled:checked + label::after {
   color: #fff;
 }
+.filter-components {
+  display: inline-block;
+  width: 220px;
+  min-height: 475px;
+}
+.filter-components ul {
+  list-style: none;
+  padding-left: 0px;
+}
+.filter-components ul h2:first-child {
+  margin-top: 0px;
+}
+.filter-components ul .checkbox label {
+  cursor: pointer;
+}
+.filter-components ul .checkbox label:before,
+.filter-components ul .checkbox label:after {
+  box-sizing: border-box;
+}

@@ -10,7 +10,7 @@ let triggerFilterCallback = (filterItems, dispatch) => {
     }
 let triggerPageCallback = (page, dispatch) => {
         let filterItems = retrieveFilterItemsDelegate()
-console.log(filterItems)
+
         dispatch(fetchGridData({filterItems, page}))
         dispatch(fetchPagerData({filterItems}))
     }

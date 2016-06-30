@@ -2,7 +2,6 @@
 <html>
   <head>
     <title>react-gridify example</title>
-    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css"/>
     <link rel="stylesheet" type="text/css" href="dist/common.css"/>
     <link rel="stylesheet" type="text/css" href="dist/grid.css"/>
@@ -102,6 +101,7 @@
             req.params = req.params || []
             var queryWhere = buildWhere(req.params)
             var categoryData = sqlAgent.query('SELECT DISTINCT category_id, category_name FROM categories JOIN products ON products.category_id = categories.category_id ' + queryWhere)
+            console.log('SELECT DISTINCT category_id, category_name FROM categories JOIN products ON products.category_id = categories.category_id ' + queryWhere)
             var brandData = sqlAgent.query('SELECT DISTINCT brand_id, brand_name FROM brands JOIN products ON products.brand_id = brands.brand_id ' + queryWhere)
             var supplierData = sqlAgent.query('SELECT DISTINCT supplier_id, supplier_name FROM suppliers JOIN products ON products.supplier_id = suppliers.supplier_id ' + queryWhere)
             res.send({
@@ -121,7 +121,7 @@
                 filterItems.map(function(item){
                     return item.identifier + item.operator + item.value
                 })
-                .join('and')
+                .join(' and ')
         }
 
         return queryWhere
@@ -151,6 +151,15 @@
 
         var queryPage = ''
         page && (queryPage = ' LIMIT '+(page*pageSize)+', '+pageSize)
+
+        console.log(
+                    'SELECT product_id, category_name, brand_name, supplier_name, name, quantity, price FROM products'
+                    +' JOIN categories ON products.category_id = categories.category_id'
+                    +' JOIN brands ON products.brand_id = brands.brand_id'
+                    +' JOIN suppliers ON products.supplier_id = suppliers.supplier_id'
+                    +queryWhere
+                    +queryPage
+                )
 
         return sqlAgent.query(
                     'SELECT product_id, category_name, brand_name, supplier_name, name, quantity, price FROM products'

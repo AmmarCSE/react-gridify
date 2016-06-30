@@ -1,10 +1,14 @@
 body {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
+  line-height: 1.42857143;
+  margin-top: 50px;
 }
 .grid-components {
-  display: table;
-  margin: auto;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 50px;
+  min-height: 325px;
 }
 .grid-components .grid-container {
   border: 2px solid gray;

@@ -34,7 +34,7 @@ export default class FiltersView extends Component {
   render() {
     const { filters } = this.props
 
-    return <div>
+    return <div className="filter-components">
         {
             Object.keys(filters).map((filterKey, index) =>{
                 return <FilterHolder 

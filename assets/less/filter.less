@@ -1,1 +1,24 @@
 @import "awesome-bootstrap-checkbox";
+
+.filter-components{
+    display:inline-block;
+    width: 220px;
+    min-height: 475px;
+
+    ul{
+        list-style: none;
+        padding-left: 0px;
+
+        h2:first-child{
+            margin-top: 0px;
+        }
+        .checkbox {
+            label {
+                cursor:pointer;
+                &:before, &:after{
+                    box-sizing: border-box;
+                }
+            }
+        }
+    }
+}
