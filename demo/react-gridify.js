@@ -30088,30 +30088,6 @@
 	};
 
 	var dropdownFields = {
-	    'category_name': function () {
-	        return {
-	            dataList: sqlAgent.query('SELECT DISTINCT category_id, category_name FROM categories JOIN products ON products.category_id = categories.category_id').map(function (row) {
-	                return { key: row.category_id, value: row.category_name };
-	            }),
-	            key: 'category_id'
-	        };
-	    }(),
-	    'brand_name': function () {
-	        return {
-	            dataList: sqlAgent.query('SELECT DISTINCT brand_id, brand_name FROM brands JOIN products ON products.brand_id = brands.brand_id').map(function (row) {
-	                return { key: row.brand_id, value: row.brand_name };
-	            }),
-	            key: 'brand_id'
-	        };
-	    }(),
-	    'supplier_name': function () {
-	        return {
-	            dataList: sqlAgent.query('SELECT DISTINCT supplier_id, supplier_name FROM suppliers JOIN products ON products.supplier_id = suppliers.supplier_id').map(function (row) {
-	                return { key: row.supplier_id, value: row.supplier_name };
-	            }),
-	            key: 'supplier_id'
-	        };
-	    }()
 	};
 
 	exports.rowKey = rowKey;
