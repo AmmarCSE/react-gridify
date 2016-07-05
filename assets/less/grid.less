@@ -33,6 +33,14 @@
                 height: 30px;
             }
 
+            thead th:not(:last-child){
+                width: 169px;
+            }
+
+            thead th:last-child{
+                width: 81px;
+            }
+
             tbody tr{
                 border-top: @border;   
 
@@ -41,8 +49,20 @@
                     border-right: @border;   
 
                     * {
-                        height: 40px;
                         width: 160px;
+                    }
+
+                    .awesomplete {
+                        ul {
+                            width: 167px;
+                        }
+                        input{
+                            cursor: pointer;
+                        }
+                    }
+
+                    &:last-child *{
+                        height: 40px;
                     }
 
                     input {
@@ -78,7 +98,7 @@
 
                 td:last-child {
                     display:inline-block;
-                    width: 80px;
+                    width: 82px;
                     height:46px;
                     border: none;
                 }

@@ -29,6 +29,12 @@ body {
 .grid-components .grid-container .grid thead th {
   height: 30px;
 }
+.grid-components .grid-container .grid thead th:not(:last-child) {
+  width: 169px;
+}
+.grid-components .grid-container .grid thead th:last-child {
+  width: 81px;
+}
 .grid-components .grid-container .grid tbody tr {
   border-top: 2px solid gray;
 }
@@ -37,8 +43,16 @@ body {
   border-right: 2px solid gray;
 }
 .grid-components .grid-container .grid tbody tr td * {
-  height: 40px;
   width: 160px;
+}
+.grid-components .grid-container .grid tbody tr td .awesomplete ul {
+  width: 167px;
+}
+.grid-components .grid-container .grid tbody tr td .awesomplete input {
+  cursor: pointer;
+}
+.grid-components .grid-container .grid tbody tr td:last-child * {
+  height: 40px;
 }
 .grid-components .grid-container .grid tbody tr td input {
   padding-left: 7px;
@@ -102,7 +116,7 @@ body {
 }
 .grid-components .grid-container .grid tbody tr td:last-child {
   display: inline-block;
-  width: 80px;
+  width: 82px;
   height: 46px;
   border: none;
 }

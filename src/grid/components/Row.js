@@ -2,18 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Cell from './Cell'
 import {generateReactKey} from '~/src/utils/utils'
-import { editRow, commitRow, deleteRow, commitAddRow, canceledOperationRow } from '../actions/index'
+import { editRow, commitRow, deleteRow, commitAddRow, canceledAddRow, canceledEditRow } from '../actions/index'
 import  {rowKey}  from '~/src/utils/config'
+import  {dropdownFields}  from '~/src/utils/config'
 
 export default class Row extends Component {
   constructor(props) {
     super(props)
-    let handlers = ['onEditRowClick', 'onCommitRowClick', 'onCellChange', 'onDeleteRowClick', 'onCommitNewRowClick', 'onCancelOperationRowClick']
+    let handlers = ['onEditRowClick', 'onCommitRowClick', 'aggregateRowState', 'onDeleteRowClick', 'onCommitNewRowClick', 'onCancelAddRowClick', 'onCancelEditRowClick']
     handlers.forEach(handler => {
         this[handler] = this[handler].bind(this)
     })
-    /*let handlers = [this.onEditRowClick, this.onCommitRowClick, this.onCellChange, this.onDeleteRowClick]
-    handlers.forEach(handler => handler = handler.bind(this))*/
   }
 
   shouldComponentUpdate() {
@@ -38,20 +37,39 @@ export default class Row extends Component {
   }
 
   onDeleteRowClick() {
-    confirm('Are you sure you want to delete this row?') && this.props.dispatch(deleteRow(this.props.index, this.props.rowData[rowKey]))
+    confirm(alertMessageMap['delete']) && this.props.dispatch(deleteRow(this.props.index, this.props.rowData[rowKey]))
   }
 
-  onCancelOperationRowClick() {
-    confirm('Are you sure you want to cancel this row operation?') && this.props.dispatch(canceledOperationRow(this.props.index))
+  onCancelAddRowClick() {
+    confirm(alertMessageMap['cancel']) && this.props.dispatch(canceledAddRow(this.props.index))
   }
 
-  onCellChange(event) {
+  onCancelEditRowClick() {
+    confirm(alertMessageMap['cancel']) && this.props.dispatch(canceledEditRow(this.props.index))
+  }
+
+  aggregateRowState(name, value) {
+    let originalName = name 
+    if(~Object.keys(dropdownFields).indexOf(originalName)){
+        value = dropdownFields[originalName].dataList.find(row => row.value == value).key
+        name = dropdownFields[originalName].key
+    }
+
     //aggregate changes made to row
-    this.setState({[event.target.name] : event.target.value})
+    this.setState({[name] : value})
+  }
+
+  componentDidMount() {
+    const script = document.createElement("script")
+    //transform editable fields with limited options to dropdown boxes
+    script.innerText = 'Awesomplete.init()'
+
+    document.body.appendChild(script);
   }
 
   render() {
     const { rowData, headers, mode } = this.props
+
     return(
         <tr className={mode}>
             {
@@ -63,7 +81,7 @@ export default class Row extends Component {
                         propertyKey={rowKey}
                         value={rowData[rowKey]}
                         mode={mode}
-                        onCellChange={this.onCellChange}
+                        aggregateRowState={this.aggregateRowState}
                     />
                 })
             }
@@ -84,7 +102,7 @@ export default class Row extends Component {
                             return (
                                 <div>
                                     <span className="commit-row icon" onClick={this.onCommitRowClick}></span>
-                                    <span className="cancel-operation-row icon" onClick={this.onCancelOperationRowClick}></span>
+                                    <span className="cancel-operation-row icon" onClick={this.onCancelEditRowClick}></span>
                                 </div>
                             )
                         }   
@@ -92,7 +110,7 @@ export default class Row extends Component {
                             return (
                                 <div>
                                     <span className="add-row-icon icon" onClick={this.onCommitNewRowClick}></span>
-                                    <span className="cancel-operation-row icon" onClick={this.onCancelOperationRowClick}></span>
+                                    <span className="cancel-operation-row icon" onClick={this.onCancelAddRowClick}></span>
                                 </div>
                             )
                         }   
@@ -104,3 +122,8 @@ export default class Row extends Component {
   }
 }
 export default connect()(Row);
+
+const alertMessageMap = {
+    'cancel' : 'Are you sure you want to cancel this row operation?',
+    'delete' : 'Are you sure you want to delete this row?'
+}

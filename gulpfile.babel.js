@@ -9,7 +9,7 @@ const reload = browserSync.reload;
 gulp.task('default', () => {
   return gulp.src('src/App.js')
     .pipe(webpack(require('./webpack.config.js')))
-    .pipe(gulp.dest('dist/'));
+    .pipe(gulp.dest('demo/'));
 });
 
 gulp.task('scripts', () => {
@@ -24,7 +24,7 @@ gulp.task('styles', () => {
     return gulp.src('assets/less/*.less')
         .pipe($.less())
         .on('error', handleError)
-        .pipe(gulp.dest('dist/'))
+        .pipe(gulp.dest('dist/styles'))
         .pipe(reload({stream: true}));
 });
 

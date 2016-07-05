@@ -45,7 +45,7 @@ export default class PagerView extends Component {
     let pages = []
     pageSections.forEach(pageSection => 
         pages = pages.concat(
-            pageSection.map(page => <span className="page" onClick={this.onPageClick.bind(this, page-1)} key={generateReactKey()}>{page}</span>)
+            pageSection.map(page => <span className={'page'+(page == currentPage ? ' current':'')} onClick={this.onPageClick.bind(this, page-1)} key={generateReactKey()}>{page}</span>)
         )
     )
 

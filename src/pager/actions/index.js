@@ -4,27 +4,7 @@ export const REQUEST_PAGERDATA = 'REQUEST_PAGERDATA'
 export const RECEIVE_PAGERDATA = 'RECEIVE_PAGERDATA'
 export const PAGER_TRIGGERED = 'PAGER_TRIGGERED'
 
-export function fetchPagerDataIfNeeded(search) {
-  return (dispatch, getState) => {
-    if (shouldFetchPagerData(getState(), search)) {
-      return dispatch(fetchPagerData(search))
-    }
-  }
-}
-
-function shouldFetchPagerData(state, search) {
-  return true
-  const posts = state.postsByReddit[search]
-  if (!posts) {
-    return true
-  }
-  if (posts.isFetching) {
-    return false
-  }
-  return posts.didInvalidate
-}
-
-export function fetchPagerData(search) {
+export function fetchPagerData(search, page) {
   return dispatch => {
     dispatch(requestPagerData(search))
     ajax('GET', '[be]/pagerData', (json) => { dispatch(receivePagerData(json)) }, search)

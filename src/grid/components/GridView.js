@@ -18,6 +18,7 @@ export default class GridView extends Component {
 
   render() {
     const { data, headers, editRows, onEditRowClick, addRows } = this.props
+
     return <div className="grid-components">
         <div className="grid-container">
             <table className="grid">

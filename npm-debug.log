@@ -1,0 +1,30 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'run',
+1 verbose cli   'NODE_ENV=production',
+1 verbose cli   'webpack',
+1 verbose cli   '-p' ]
+2 info using npm@2.13.4
+3 info using node@v0.10.25
+4 verbose node symlink /usr/bin/node
+5 verbose stack Error: missing script: NODE_ENV=production
+5 verbose stack     at run (/usr/local/lib/node_modules/npm/lib/run-script.js:142:19)
+5 verbose stack     at /usr/local/lib/node_modules/npm/lib/run-script.js:58:5
+5 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:345:5
+5 verbose stack     at checkBinReferences_ (/usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:309:45)
+5 verbose stack     at final (/usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:343:3)
+5 verbose stack     at then (/usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:113:5)
+5 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-package-json/read-json.js:300:12
+5 verbose stack     at evalmachine.<anonymous>:268:14
+5 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-package-json/node_modules/graceful-fs/graceful-fs.js:102:5
+5 verbose stack     at Object.oncomplete (evalmachine.<anonymous>:107:15)
+6 verbose cwd /home/ammar/Work/react-gridify
+7 error Linux 3.13.0-88-generic
+8 error argv "node" "/usr/local/bin/npm" "run" "NODE_ENV=production" "webpack" "-p"
+9 error node v0.10.25
+10 error npm  v2.13.4
+11 error missing script: NODE_ENV=production
+12 error If you need help, you may report this error at:
+12 error     <https://github.com/npm/npm/issues>
+13 verbose exit [ 1, true ]
