@@ -30090,7 +30090,7 @@
 	var dropdownFields = {
 	    'category_name': function () {
 	        return {
-	            dataList: sqlAgent.query('SELECT DISTINCT category_id, category_name FROM categories JOIN products ON products.category_id = categories.category_id').map(function (row) {
+	            dataList: sqlAgent.query('SELECT DISTINCT category_id, category_name FROM categories JOIN products ON products.category_id = categories.category_id ORDER BY category_name').map(function (row) {
 	                return { key: row.category_id, value: row.category_name };
 	            }),
 	            key: 'category_id'

@@ -326,6 +326,16 @@
 	            });
 	        }
 	    }, {
+	        key: 'orderby',
+	        value: function orderby(_orderby) {
+	            this.innerResult = this.innerResult.sort(function (a, b) {
+	                if (a[_orderby] < b[_orderby]) return -1;
+	                if (a[_orderby] > b[_orderby]) return 1;
+
+	                return 0;
+	            });
+	        }
+	    }, {
 	        key: 'insert',
 	        value: function insert(newRows) {
 	            this._fillTable();
@@ -498,6 +508,9 @@
 	    },
 	    'distinct': function distinct(ast) {
 	        tableAdapter.uniqueify();
+	    },
+	    'order by': function orderBy(ast) {
+	        tableAdapter.orderby(ast.vars);
 	    }
 	};
 
@@ -583,6 +596,8 @@
 	    extractTokens('result-operation', input.match(/(LIMIT) (\d+,\d+)/i), tokens);
 
 	    extractTokens('result-operation', input.match(/SELECT ((DISTINCT)) [\w,]+/i), tokens);
+
+	    extractTokens('result-operation', input.match(/(ORDER BY) ([\w,]+)/i), tokens);
 
 	    //return implicitly ordered tokens
 	    return tokens;
@@ -686,6 +701,11 @@
 	        return {
 	            conditions: sifted.blacks,
 	            logicalOperators: sifted.whites
+	        };
+	    },
+	    'order by': function orderBy(token) {
+	        return function (token) {
+	            return token.value;
 	        };
 	    },
 	    //do basic joins for now in which the only predicate operator is =
