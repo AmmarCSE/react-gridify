@@ -255,7 +255,6 @@ _.prototype = {
 				/*.filter(function(item) {
 					return me.filter(item, value);
 				})*/
-				.sort(this.sort)
 				.slice(0, this.maxItems);
 
 			this.suggestions.forEach(function(text) {
@@ -425,13 +424,7 @@ $.siblingIndex = function (el) {
 function init() {
 	$$("input.awesomplete-fresh").forEach(function (input) {
 		//new _(input);
-        new _(input, {
-            list: [
-                { label: "Belarus", value: "BY" },
-                { label: "China", value: "CN" },
-                { label: "United States", value: "US" }
-            ]
-        });
+        new _(input);
 	});
 }
 

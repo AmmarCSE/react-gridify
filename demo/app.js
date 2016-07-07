@@ -86,9 +86,9 @@ app.post('[be]/delete', function(req, res){
 app.get('[be]/filters', function(req, res){
     req.params = req.params || []
     var queryWhere = buildWhere(req.params)
-    var categoryData = sqlAgent.query('SELECT DISTINCT category_id, category_name FROM categories JOIN products ON products.category_id = categories.category_id ' + queryWhere)
-    var brandData = sqlAgent.query('SELECT DISTINCT brand_id, brand_name FROM brands JOIN products ON products.brand_id = brands.brand_id ' + queryWhere)
-    var supplierData = sqlAgent.query('SELECT DISTINCT supplier_id, supplier_name FROM suppliers JOIN products ON products.supplier_id = suppliers.supplier_id ' + queryWhere)
+    var categoryData = sqlAgent.query('SELECT DISTINCT category_id, category_name FROM categories JOIN products ON products.category_id = categories.category_id ' + queryWhere + ' ORDER BY category_name')
+    var brandData = sqlAgent.query('SELECT DISTINCT brand_id, brand_name FROM brands JOIN products ON products.brand_id = brands.brand_id ' + queryWhere + ' ORDER BY brand_name')
+    var supplierData = sqlAgent.query('SELECT DISTINCT supplier_id, supplier_name FROM suppliers JOIN products ON products.supplier_id = suppliers.supplier_id ' + queryWhere + ' ORDER BY supplier_name')
 
     res.send({
         filters :

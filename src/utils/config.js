@@ -26,13 +26,13 @@ const dropdownFields = {
                 }))(),
         'brand_name': (() => ({
                     dataList: sqlAgent
-                        .query('SELECT DISTINCT brand_id, brand_name FROM brands JOIN products ON products.brand_id = brands.brand_id')
+                        .query('SELECT DISTINCT brand_id, brand_name FROM brands JOIN products ON products.brand_id = brands.brand_id ORDER BY brand_name')
                         .map(row => ({key: row.brand_id,value: row.brand_name})),
                     key: 'brand_id'
                 }))(),
         'supplier_name':(() => ({
                     dataList: sqlAgent
-                        .query('SELECT DISTINCT supplier_id, supplier_name FROM suppliers JOIN products ON products.supplier_id = suppliers.supplier_id')
+                        .query('SELECT DISTINCT supplier_id, supplier_name FROM suppliers JOIN products ON products.supplier_id = suppliers.supplier_id ORDER BY supplier_name')
                         .map(row => ({key: row.supplier_id,value: row.supplier_name})),
                     key: 'supplier_id'
                 }))()
