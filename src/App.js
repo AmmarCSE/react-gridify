@@ -6,7 +6,6 @@ import { fetchPagerData } from '../src/pager/actions'
 import Filters from '../src/filters/containers/Filters'
 import Grid from '../src/grid/containers/Grid'
 import Pager from '../src/pager/containers/Pager'
-import 'babel-polyfill'
 
 class App extends Component {
   constructor(props) {
