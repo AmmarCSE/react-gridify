@@ -22528,7 +22528,7 @@
 	        value: function componentDidMount() {
 	            var script = document.createElement("script");
 	            //transform editable fields with limited options to dropdown boxes
-	            script.innerText = 'Awesomplete.init()';
+	            script.textContent = 'Awesomplete.init()';
 
 	            document.body.appendChild(script);
 	        }
