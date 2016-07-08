@@ -1,5 +1,5 @@
 # react-gridify
-====================================================
+
 ![alt tag](https://raw.github.com/AmmarCSE/react-gridify/master/demo/react-gridify.png)
 
 react-gridify is a suite of fluxious react+redux grid components. The design has a modern grid widget along with associated components such as intelligent filters and a coherent paging scheme. Components are loosely coupled and implement a unidirectional data/action flow. 
