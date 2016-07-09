@@ -10,8 +10,11 @@
     background-clip:padding-box !important;
 }
 
-.awesomplete > ul {
+.awesomplete > input {
     cursor:pointer;
+}
+
+.awesomplete > ul {
 	position: absolute;
 	left: 0;
 	z-index: 1;
