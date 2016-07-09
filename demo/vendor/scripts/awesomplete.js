@@ -35,10 +35,8 @@ var _ = function (input, o) {
 
 	// Create necessary elements
 
-	this.container = $.create("div", {
-		className: "awesomplete",
-		around: input
-	});
+	this.container = input.parentElement;
+    input.parentElement.className = 'awesomplete';
 
 	this.ul = $.create("ul", {
 		hidden: "hidden",
@@ -46,7 +44,6 @@ var _ = function (input, o) {
 	});
 
 	this.status = $.create("span", {
-		className: "visually-hidden",
 		role: "status",
 		"aria-live": "assertive",
 		"aria-relevant": "additions",
