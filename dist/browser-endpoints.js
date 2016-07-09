@@ -3433,6 +3433,7 @@
 /* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -3551,7 +3552,7 @@
 /* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {/*istanbul ignore next*/
+	/* WEBPACK VAR INJECTION */(function(global) {/*istanbul ignore next*/"use strict";
 
 	/*istanbul ignore next*/__webpack_require__(305);
 
@@ -3600,6 +3601,7 @@
 	 */
 
 	!(function(global) {
+	  "use strict";
 
 	  var hasOwn = Object.prototype.hasOwnProperty;
 	  var undefined; // More compressible than void 0.
