@@ -35,10 +35,8 @@ var _ = function (input, o) {
 
 	// Create necessary elements
 
-	this.container = $.create("div", {
-		className: "awesomplete",
-		around: input
-	});
+	this.container = input.parentElement;
+    input.parentElement.className = 'awesomplete';
 
 	this.ul = $.create("ul", {
 		hidden: "hidden",
@@ -46,7 +44,6 @@ var _ = function (input, o) {
 	});
 
 	this.status = $.create("span", {
-		className: "visually-hidden",
 		role: "status",
 		"aria-live": "assertive",
 		"aria-relevant": "additions",
@@ -55,8 +52,7 @@ var _ = function (input, o) {
 
 	// Bind events
 
-	$.bind(this.input, {
-		"input": this.evaluate.bind(this),
+	$.bind(this.input.parentElement, {
 		"click": function() {
             if (me.ul.childNodes.length === 0) {
                 me.minChars = 0;
@@ -69,7 +65,10 @@ var _ = function (input, o) {
             else {
                 me.close();
             }
-        },
+        }
+    });
+	$.bind(this.input, {
+		"input": this.evaluate.bind(this),
 		"blur": this.close.bind(this, { reason: "blur" }),
 		"keydown": function(evt) {
 			var c = evt.keyCode;
