@@ -10,3 +10,5 @@ Demo
 --------------
 
 The original demo source can be found in the `/demo` directory and uses the [browser-endpoints](https://github.com/AmmarCSE/browser-endpoints) and [local-storage-sql](https://github.com/AmmarCSE/local-storage-sql) plugins to simulate a full use-case with the `react-gridify` components. Navigate to this [CodePen](http://codepen.io/AmmarCSE/full/YWQgWb/) for a live demo experience.
+
+<sub>*Note: This demo is not supported in IE. This is due to the use of the [browser-endpoints](https://github.com/AmmarCSE/browser-endpoints) plugin which makes extensions to the native `XMLHttpRequest` that are incompatible with IE. However, the react-gridiy extension itself is supported in IE.*</sub>
