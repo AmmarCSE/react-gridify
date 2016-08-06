@@ -301,12 +301,10 @@ input[type="radio"] .styled:checked + label::after {
 }
 .filter-components {
   display: inline-block;
-  width: 220px;
   min-height: 475px;
   background: #EAEEF1;
   padding: 10px;
   padding-top: 0px;
-  margin-left: 10px;
   border: 2px solid gray;
   border-radius: 5px;
 }
@@ -355,9 +353,6 @@ body {
 .grid-components .grid-container .grid thead th {
   height: 30px;
 }
-.grid-components .grid-container .grid thead th:not(:last-child) {
-  width: 169px;
-}
 .grid-components .grid-container .grid thead th:last-child {
   width: 81px;
 }
@@ -369,7 +364,7 @@ body {
   border-right: 2px solid gray;
 }
 .grid-components .grid-container .grid tbody tr td * {
-  width: 160px;
+  width: 150px;
 }
 .grid-components .grid-container .grid tbody tr td .awesomplete ul {
   width: 169px;
