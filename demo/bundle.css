@@ -4,6 +4,9 @@ body {
   line-height: 1.42857143;
   margin-top: 50px;
 }
+#root{
+  white-space:nowrap;
+}
 .checkbox {
   padding-left: 20px;
 }
@@ -307,6 +310,7 @@ input[type="radio"] .styled:checked + label::after {
   padding-top: 0px;
   border: 2px solid gray;
   border-radius: 5px;
+  width: 195px;
 }
 .filter-components ul {
   list-style: none;
